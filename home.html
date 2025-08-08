@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Download GitHub Repo as ZIP</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
+    <style>
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        font-family: "Segoe UI", Tahoma, sans-serif;
+        background: url(bgImg.jpg) no-repeat center center/cover;
+        height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .container {
+        background: rgba(255, 255, 255, 0.15);
+        backdrop-filter: blur(12px);
+        padding: 35px 25px;
+        border-radius: 16px;
+        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+        width: 100%;
+        max-width: 450px;
+        text-align: center;
+        animation: fadeIn 0.6s ease-in-out, float 3s infinite ease-in-out;
+        border: 1px solid rgba(255, 255, 255, 0.3);
+      }
+
+      h1 {
+        font-size: 24px;
+        color: #fff;
+        margin-bottom: 10px;
+      }
+
+      p {
+        font-size: 15px;
+        color: #eee;
+        margin-bottom: 20px;
+      }
+
+      input {
+        width: 100%;
+        padding: 12px 14px;
+        margin-top: 10px;
+        border: none;
+        border-radius: 8px;
+        font-size: 14px;
+        outline: none;
+        background: rgba(255, 255, 255, 0.85);
+        transition: 0.3s;
+      }
+
+      input:focus {
+        box-shadow: 0 0 8px rgba(0, 122, 204, 0.5);
+        background: white;
+      }
+
+      button {
+        margin-top: 15px;
+        width: 100%;
+        padding: 12px;
+        border: none;
+        border-radius: 8px;
+        background: rgb(40, 38, 38);
+        color: white;
+        font-size: 16px;
+        font-weight: 500;
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+
+      button:hover {
+        background: gray;
+        transform: translateY(-2px) scale(1.02);
+      }
+      .contact-links {
+        display: flex;
+        justify-content: center;
+        gap: 25px;
+        margin-top: 20px;
+        margin-bottom: -10px;
+      }
+
+      .contact-links a {
+        color: #ffffff;
+        font-size: 20px;
+        text-decoration: none;
+        transition: color 0.3s ease;
+      }
+
+      .contact-links a:hover {
+        color: #00acee;
+      }
+      footer {
+        background-color: transparent;
+        color: #ccc;
+        text-align: center;
+        padding: 15px 0;
+        font-size: 14px;
+        position: fixed;
+        width: 100%;
+        bottom: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Download GitHub Repo as ZIP</h1>
+      <p>Paste Your Link Below</p>
+      <input
+        type="url"
+        id="repoUrl"
+        placeholder="https://github.com/user/repo"
+      />
+      <button onclick="downloadRepo()">Download ZIP</button>
+      <div class="contact-links">
+        <a
+          href="https://portfolio.aman"
+          target="_blank"
+          title="My Portfolio Website"
+        >
+          <i class="fas fa-globe"></i>
+        </a>
+        <a
+          href="https://www.linkedin.com/in/aman-raj-verma-99101730a/"
+          target="_blank"
+          title="LinkedIn"
+        >
+          <i class="fab fa-linkedin"></i>
+        </a>
+        <a href="https://github.com/amanrv2004" target="_blank" title="GitHub">
+          <i class="fab fa-github"></i>
+        </a>
+      </div>
+    </div>
+
+    <footer class="footer">
+      <p>&copy; 2025 Aman Raj Verma . All rights reserved.</p>
+    </footer>
+
+    <script>
+      function downloadRepo() {
+        const repoUrl = document.getElementById("repoUrl").value.trim();
+        const branch = "main";
+
+        if (!repoUrl.startsWith("https://github.com/")) {
+          alert("Please enter a valid GitHub repository URL");
+          return;
+        }
+
+        try {
+          const parts = new URL(repoUrl).pathname.split("/").filter(Boolean);
+          if (parts.length < 2) throw new Error("Invalid GitHub URL");
+
+          const owner = parts[0];
+          const repo = parts[1];
+          const zipUrl = `https://github.com/${owner}/${repo}/archive/refs/heads/${branch}.zip`;
+
+          window.location.href = zipUrl;
+        } catch (err) {
+          alert("Invalid GitHub repository URL");
+        }
+      }
+    </script>
+  </body>
+</html>
